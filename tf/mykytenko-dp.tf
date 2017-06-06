@@ -20,7 +20,6 @@ module "vpc" {
   source = "./modules/vpc"
 
   global_availability_zones   = "${var.global_availability_zones}"
-  global_elsevier_cidr_blocks = "${var.global_elsevier_cidr_blocks}"
   global_public_subnets       = "${var.global_public_subnets}"
   global_private_subnets      = "${var.global_private_subnets}"
   vpc_contact_tag             = "${var.global_contact_tag}"
@@ -55,29 +54,6 @@ module "bastion" {
   global_vpc_id            = "${module.vpc.vpc_id}"
   global_vpc_subnet        = "${module.vpc.vpc_cidr_block}"
   bastion_trusted_networks = "${var.global_epam_cidr_block},178.124.171.118/32"
-}
-
-# Set up Gerrit system
-module "gerrit" {
-  source = "./modules/gerrit"
-
-  global_account_number         = "${var.global_account_number}"
-  gerrit_ami                    = "ami-c481fad3"
-  gerrit_asg_subnets            = "${module.vpc.private_subnets}"
-  gerrit_instance_type          = "t2.medium"
-  gerrit_contact                = "${var.global_contact_tag}"
-  gerrit_elb_log_bucket         = "${var.global_logging_bucket}"
-  gerrit_elb_subnets            = "${module.vpc.public_subnets}"
-  gerrit_efs_subnets            = "${module.vpc.private_subnets}"
-  gerrit_rds_subnets            = "${module.vpc.private_subnets}"
-  gerrit_rds_instance_type      = "db.t2.medium"
-  gerrit_environment            = "${var.global_environment_tag}"
-  gerrit_bastion_asg_sg         = "${module.bastion.bastion_sg}"
-  gerrit_keypair                = "${var.global_keypair}"
-  gerrit_https_certificate_name = "sr-signoff.ets-cloud.com"
-  gerrit_trusted_networks       = "${var.global_epam_cidr_block},${join(",", formatlist("%s/32", split(",", module.vpc.nat_eips)))},${var.epam_minsk_cidr_blocks},${var.elsevier_cidrs_for_gerrit},52.2.116.88/32,${var.elsevier_danish_offices}"
-  global_region                 = "${var.global_region}"
-  global_vpc_id                 = "${module.vpc.vpc_id}"
 }
 
 # Set up Jenkins CICD tool

@@ -1,7 +1,7 @@
 #--------------------------------------------------------------
 # Global Variables
 #--------------------------------------------------------------
-global_account_number = "780640478506" # AWS account number.
+global_account_number = "676206752786" # AWS account number.
 
 global_work_profile = "mykytenko-dp-profile"
 
