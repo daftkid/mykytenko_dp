@@ -42,7 +42,7 @@ variable "bastion_puppet_environment" {
 
 variable "bastion_trusted_networks" {
   description = "Comma-separated list of trusted networks in CIDR notation."
-  default     = "198.176.80.0/20,198.185.18.0/24,52.18.179.73/32,145.36.0.0/16"
+  default     = "0.0.0.0/0"
 }
 
 variable "bastion_user" {
