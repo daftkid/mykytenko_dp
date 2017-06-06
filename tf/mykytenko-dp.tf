@@ -1,8 +1,7 @@
 #------------------------------------------------------------------------------
 # File: mykytenko-dp.tf
 # Description: This is the root module for the account.
-# This root module is responsible for managing environment
-# infrastructure.
+# This root module is responsible for managing environment infrastructure.
 #
 # ALL INFRASTUCTURE SHOULD BE MANAGED USING MODULES, NO DIRECT RESOURCE
 # DECLARATIONS SHOULD EVER BE PRESENT IN THIS FILE.
@@ -27,14 +26,6 @@ module "vpc" {
   vpc_name                    = "${var.vpc_name}"
   vpc_product_tag             = "${var.global_product_tag}"
   vpc_subnet                  = "${var.vpc_subnet}"
-}
-
-# Add missing entries to the network ACL in our VPC
-module "more_acl" {
-  source = "./modules/nacl"
-
-  public_acl_id = "acl-c2bc3aa4"
-  source_cidrs  = "0.0.0.0/0"
 }
 
 #-----------------------------------------------------------------

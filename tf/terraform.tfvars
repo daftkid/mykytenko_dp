@@ -17,8 +17,6 @@ global_logging_bucket = "collected-logs-mykytenko-dp" # Name of logging bucket t
 
 global_private_subnets = "10.173.55.0/25,10.173.55.128/25" # Comma-separated list of subnets in CIDR notation.
 
-global_product_tag = "Mykytenko-DP" # Short product name
-
 global_public_subnets = "10.173.54.0/25,10.173.54.128/25" # Comma-separated list of subnets in CIDR notation.
 
 global_region = "us-east-1" # The AWS region.
