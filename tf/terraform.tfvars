@@ -19,6 +19,8 @@ global_private_subnets = "10.173.55.0/25,10.173.55.128/25" # Comma-separated lis
 
 global_public_subnets = "10.173.54.0/25,10.173.54.128/25" # Comma-separated list of subnets in CIDR notation.
 
+global_trusted_cidr = "0.0.0.0/0"
+
 global_region = "us-east-1" # The AWS region.
 
 #---------------------------------------------------------------

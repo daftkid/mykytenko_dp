@@ -25,6 +25,8 @@ variable "global_provider_role" {
 
 variable "global_public_subnets" {}
 
+variable "global_trusted_cidr" {}
+
 variable "global_region" {}
 
 #---------------------------------------------------------------
