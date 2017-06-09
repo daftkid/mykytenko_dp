@@ -6,9 +6,8 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags {
-    Name        = "${var.vpc_name}"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
+    Name    = "${var.vpc_name}"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
   }
 }

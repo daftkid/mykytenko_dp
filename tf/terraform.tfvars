@@ -5,7 +5,7 @@ global_account_number = "676206752786" # AWS account number.
 
 global_work_profile = "mykytenko-dp-profile"
 
-global_availability_zones = "us-east-1b,us-east-1c" # Comma-separated string.
+global_availability_zones = "us-east-1a,us-east-1b" # Comma-separated string.
 
 global_contact_tag = "alexandr.mykytenko@gmail.com" # Email address for resource contact tag.
 
@@ -13,7 +13,7 @@ global_environment_tag = "dp" # The environment name.
 
 global_keypair = "MYKYTENKO-DP-KEYPAIR" # AWS EC2 key pair name.
 
-global_logging_bucket = "collected-logs-mykytenko-dp" # Name of logging bucket to use for ELB access logs.
+global_logging_bucket = "logs-mykytenko-dp" # Name of logging bucket to use for ELB access logs.
 
 global_private_subnets = "10.173.55.0/25,10.173.55.128/25" # Comma-separated list of subnets in CIDR notation.
 

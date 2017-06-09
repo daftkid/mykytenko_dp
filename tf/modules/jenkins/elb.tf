@@ -34,10 +34,9 @@ resource "aws_elb" "jenkins_elb" {
   idle_timeout                = "${var.jenkins_elb_idle_timeout}"
 
   tags {
-    Name         = "${var.jenkins_elb_name}-${var.jenkins_environment}"
-    contact      = "${var.jenkins_contact}"
-    environment  = "${var.jenkins_environment}"
-    role         = "Jenkins"
-    created_with = "Terraform"
+    Name    = "${var.jenkins_elb_name}-${var.jenkins_environment}"
+    Contact = "${var.jenkins_contact}"
+    Env     = "${var.jenkins_environment}"
+    Role    = "Jenkins"
   }
 }

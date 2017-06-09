@@ -1,11 +1,12 @@
 #--------------------------------------------------------------
 # Global Variables
 #--------------------------------------------------------------
-variable "global_region" {
+variable "jenkins_region" {
   description = "The AWS region in which to deploy the bastion infrastructure."
+  default     = "us-east-1"
 }
 
-variable "global_vpc_id" {
+variable "jenkins_vpc_id" {
   description = "The VPC ID in which to deploy the bastion infrastructure."
 }
 
@@ -114,12 +115,12 @@ variable "jenkins_elb_unhealthy_threshold" {
 }
 
 variable "jenkins_elb_enable_https" {
-  description = "Specify whether we should be using HTTPS on the Jenkins public ELB"
+  description = "Specify whether you should be using HTTPS on the Jenkins public ELB"
   default     = false
 }
 
 variable "jenkins_elb_https_cert" {
-  description = "ARN of the certficate that we should use on the ELB if we enable https"
+  description = "ARN of the certficate that you should use on the ELB if we enable https"
   default     = ""
 }
 
@@ -128,19 +129,19 @@ variable "jenkins_elb_https_cert" {
 #--------------------------------------------------------------
 variable "jenkins_s3_move_to_ia_threshold" {
   type        = "string"
-  description = "Threshold when we move log data to IA class"
+  description = "Threshold when you move log data to IA class"
   default     = "30"
 }
 
 variable "jenkins_s3_move_to_glacier_threshold" {
   type        = "string"
-  description = "Threshold when we move log data to Glacier class"
+  description = "Threshold when you move log data to Glacier class"
   default     = "90"
 }
 
 variable "jenkins_s3_expiration_threshold" {
   type        = "string"
-  description = "Threshold when we remove the logs from S3 bucket"
+  description = "Threshold when you remove the logs from S3 bucket"
   default     = "365"
 }
 
@@ -155,5 +156,5 @@ variable "jenkins_s3_versioning" {
 #--------------------------------------------------------------
 variable "jenkins_dns_zone" {
   type        = "string"
-  description = "Route53 hosted zone in which we would want to create DNS record to point to our ELB"
+  description = "Route53 hosted zone in which you would want to create DNS record to point to our ELB"
 }

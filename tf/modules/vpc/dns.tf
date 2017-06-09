@@ -2,13 +2,12 @@
 # Private Hosted Forward Lookup Zone
 #--------------------------------------------------------------
 resource "aws_route53_zone" "vpc_private_zone" {
-  name   = "${var.global_phz_domain}"
+  name   = "${var.vpc_phz_domain}"
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
   }
 }
 
@@ -20,10 +19,9 @@ resource "aws_route53_zone" "reverse_lookup_zone" {
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
-    Name        = "${element(split(".", var.vpc_subnet),1)}.${element(split(".", var.vpc_subnet),0)}.in-addr.arpa"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
+    Name    = "${element(split(".", var.vpc_subnet),1)}.${element(split(".", var.vpc_subnet),0)}.in-addr.arpa"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
   }
 }
 
@@ -31,14 +29,13 @@ resource "aws_route53_zone" "reverse_lookup_zone" {
 # Custom DHCP Option Set
 #--------------------------------------------------------------
 resource "aws_vpc_dhcp_options" "dp_options" {
-  domain_name         = "${var.global_phz_domain}"
+  domain_name         = "${var.vpc_phz_domain}"
   domain_name_servers = ["AmazonProvidedDNS"]
 
   tags {
-    Name        = "dp_dhcp_options"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
+    Name    = "dp_dhcp_options"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
   }
 }
 

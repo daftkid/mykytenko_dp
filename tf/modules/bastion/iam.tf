@@ -2,7 +2,7 @@
 # Bastion Instance Profile
 #--------------------------------------------------------------
 resource "aws_iam_instance_profile" "bastion_profile" {
-  name  = "bastion-profile-${var.bastion_environment}-${var.global_region}"
+  name  = "bastion-profile-${var.bastion_environment}-${var.bastion_region}"
   role = ["${aws_iam_role.bastion_role.name}"]
 
   provisioner "local-exec" {
@@ -14,7 +14,7 @@ resource "aws_iam_instance_profile" "bastion_profile" {
 # Bastion IAM Role
 #--------------------------------------------------------------
 resource "aws_iam_role" "bastion_role" {
-  name = "bastion-role-${var.bastion_environment}-${var.global_region}"
+  name = "bastion-role-${var.bastion_environment}-${var.bastion_region}"
   path = "/"
 
   assume_role_policy = <<EOF

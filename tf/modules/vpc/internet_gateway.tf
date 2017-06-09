@@ -6,8 +6,7 @@ resource "aws_internet_gateway" "gw" {
 
   tags = {
     Name        = "${var.vpc_name} Internet Gateway"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
+    Env         = "${var.vpc_environment_tag}"
+    Contact     = "${var.vpc_contact_tag}"
   }
 }

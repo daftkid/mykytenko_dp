@@ -2,15 +2,15 @@
 # Bastion Load Balancer
 #--------------------------------------------------------------
 resource "aws_elb" "bastion_elb" {
-  name            = "${var.bastion_elb_name}-${var.bastion_environment}"
-  subnets         = ["${split(",", var.bastion_elb_subnets)}"]
-  security_groups = ["${aws_security_group.bastion_elb_sg.id}"]
+  name                  = "${var.bastion_elb_name}-${var.bastion_environment}"
+  subnets               = ["${split(",", var.bastion_elb_subnets)}"]
+  security_groups       = ["${aws_security_group.bastion_elb_sg.id}"]
 
   listener {
-    instance_port     = 22
-    instance_protocol = "tcp"
-    lb_port           = 22
-    lb_protocol       = "tcp"
+    instance_port       = 22
+    instance_protocol   = "tcp"
+    lb_port             = 22
+    lb_protocol         = "tcp"
   }
 
   health_check {
@@ -22,9 +22,9 @@ resource "aws_elb" "bastion_elb" {
   }
 
   access_logs {
-    bucket        = "${var.bastion_elb_log_bucket}"
-    interval      = "${var.bastion_elb_log_interval}"
-    bucket_prefix = "${var.bastion_elb_log_prefix}"
+    bucket              = "${var.bastion_elb_log_bucket}"
+    interval            = "${var.bastion_elb_log_interval}"
+    bucket_prefix       = "${var.bastion_elb_log_prefix}"
   }
 
   connection_draining_timeout = 60
@@ -33,10 +33,9 @@ resource "aws_elb" "bastion_elb" {
   idle_timeout                = "${var.bastion_elb_idle_timeout}"
 
   tags {
-    Name        = "${var.bastion_elb_name}-${var.bastion_environment}"
-    contact     = "${var.bastion_contact}"
-    product     = "${var.global_product}"
-    environment = "${var.bastion_environment}"
-    role        = "bastion"
+    Name                = "${var.bastion_elb_name}-${var.bastion_environment}"
+    Contact             = "${var.bastion_contact}"
+    Env                 = "${var.bastion_environment}"
+    Role                = "bastion"
   }
 }

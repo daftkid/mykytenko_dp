@@ -2,13 +2,12 @@
 # An S3 bucket to hold files from Jenkins
 #--------------------------------------------------------------
 resource "aws_s3_bucket" "jenkins_backup_bucket" {
-  bucket = "jenkins-backup-${var.jenkins_environment}-${var.global_region}"
+  bucket = "jenkins-backup-${var.jenkins_environment}-${var.jenkins_region}"
   acl    = "private"
 
   tags {
-    Name         = "jenkins-backup-${var.jenkins_environment}-${var.global_region}"
+    Name         = "jenkins-backup-${var.jenkins_environment}-${var.jenkins_region}"
     Purpose      = "Host files from Jenkins instance"
-    created_with = "Terraform"
   }
 
   lifecycle_rule {

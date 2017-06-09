@@ -1,15 +1,17 @@
 #--------------------------------------------------------------
 # Global Variables
 #--------------------------------------------------------------
-variable "global_region" {
+variable "bastion_region" {
   description = "The AWS region in which to deploy the bastion infrastructure."
+  default     = "us-east-1"
 }
 
-variable "global_vpc_subnet" {
+variable "bastion_vpc_subnet" {
   description = "The VPC subnet in CIDR notation."
+  default     = "10.173.54.0/23"
 }
 
-variable "global_vpc_id" {
+variable "bastion_vpc_id" {
   description = "The VPC ID in which to deploy the bastion infrastructure."
 }
 
@@ -18,16 +20,17 @@ variable "global_vpc_id" {
 #--------------------------------------------------------------
 variable "bastion_contact" {
   description = "The contact to assign to resources."
+  default     = "alexandr.mykytenko@gmail.com"
 }
 
 variable "bastion_environment" {
   description = "The environment label to apply to bastion resources."
-  default     = "live"
+  default     = "dp"
 }
 
 variable "bastion_instance_tier" {
   description = "The puppet hiera tier to assign to the bastion host."
-  default     = "prod"
+  default     = "dp"
 }
 
 variable "bastion_instance_role" {

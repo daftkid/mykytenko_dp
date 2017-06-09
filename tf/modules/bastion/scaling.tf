@@ -13,19 +13,19 @@ resource "aws_autoscaling_group" "bastion_asg" {
   health_check_grace_period = "${var.bastion_asg_grace_period}"
 
   tag {
-    key                 = "role"
+    key                 = "Role"
     value               = "bastion"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "environment"
+    key                 = "Env"
     value               = "${var.bastion_environment}"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "contact"
+    key                 = "Contact"
     value               = "${var.bastion_contact}"
     propagate_at_launch = true
   }
@@ -42,7 +42,7 @@ resource "aws_autoscaling_group" "bastion_asg" {
 #---------------------------------------------------------------
 resource "aws_launch_configuration" "bastion_lc" {
   name_prefix          = "bastion-lc-${var.bastion_environment}"
-  image_id             = "${lookup(var.bastion_ami, var.global_region)}"
+  image_id             = "${lookup(var.bastion_ami, var.bastion_region)}"
   instance_type        = "${var.bastion_instance_type}"
   iam_instance_profile = "${aws_iam_instance_profile.bastion_profile.id}"
   key_name             = "${var.bastion_keypair}"

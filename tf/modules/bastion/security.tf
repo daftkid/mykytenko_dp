@@ -4,7 +4,7 @@
 resource "aws_security_group" "bastion_elb_sg" {
   name        = "bastion-elb-sg-${var.bastion_environment}"
   description = "Authorize SSH access to the bastion ELB from trusted source networks."
-  vpc_id      = "${var.global_vpc_id}"
+  vpc_id      = "${var.bastion_vpc_id}"
 }
 
 resource "aws_security_group_rule" "allow_ingress_ssh_trusted" {
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "allow_egress_ssh_elb" {
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg-${var.bastion_environment}"
   description = "Authorize SSH access to bastion host from the bastion ELB."
-  vpc_id      = "${var.global_vpc_id}"
+  vpc_id      = "${var.bastion_vpc_id}"
 }
 
 resource "aws_security_group_rule" "allow_ingress_ssh_elb" {
@@ -49,7 +49,7 @@ resource "aws_security_group_rule" "allow_egress_all_vpc" {
   to_port           = 0
   protocol          = -1
   security_group_id = "${aws_security_group.bastion_sg.id}"
-  cidr_blocks       = ["${var.global_vpc_subnet}"]
+  cidr_blocks       = ["${var.bastion_vpc_subnet}"]
 }
 
 resource "aws_security_group_rule" "allow_egress_http_all" {
@@ -76,7 +76,7 @@ resource "aws_security_group_rule" "allow_egress_https_all" {
 resource "aws_security_group" "bastion_source_sg" {
   name        = "bastion-source-sg-${var.bastion_environment}"
   description = "Authorize SSH access from the bastion host."
-  vpc_id      = "${var.global_vpc_id}"
+  vpc_id      = "${var.bastion_vpc_id}"
 }
 
 resource "aws_security_group_rule" "allow_ingress_ssh_bastion" {

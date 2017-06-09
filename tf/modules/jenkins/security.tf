@@ -4,7 +4,7 @@
 resource "aws_security_group" "jenkins_asg_sg" {
   name        = "jenkins-asg-sg-${var.jenkins_environment}"
   description = "Security group of the ASG containing jenkins instances"
-  vpc_id      = "${var.global_vpc_id}"
+  vpc_id      = "${var.jenkins_vpc_id}"
 
   tags {
     contact      = "${var.jenkins_contact}"
@@ -81,7 +81,7 @@ resource "aws_security_group_rule" "allow_egress_gitssh_all" {
 resource "aws_security_group" "jenkins_elb_sg" {
   name        = "jenkins-elb-sg-${var.jenkins_environment}"
   description = "Security group of the ELB to allow connection to jenkins instances"
-  vpc_id      = "${var.global_vpc_id}"
+  vpc_id      = "${var.jenkins_vpc_id}"
 
   tags {
     contact      = "${var.jenkins_contact}"

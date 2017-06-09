@@ -2,20 +2,12 @@ output "nat_eips" {
   value = "${join(",", aws_eip.nat.*.public_ip)}"
 }
 
-output "inbound_http_security_group" {
-  value = "${aws_security_group.http_from_elsevier.id}"
-}
-
-output "inbound_https_security_group" {
-  value = "${aws_security_group.https_from_elsevier.id}"
-}
-
 output "phz_zone_id" {
   value = "${aws_route53_zone.vpc_private_zone.zone_id}"
 }
 
 output "phz_zone_name" {
-  value = "${var.global_phz_domain}"
+  value = "${var.vpc_phz_domain}"
 }
 
 output "private_route_table" {

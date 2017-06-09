@@ -5,7 +5,7 @@ data "template_file" "init" {
   template = "${file("${path.module}/templates/userdata.tpl")}"
 
   vars {
-    region              = "${var.global_region}"
+    region              = "${var.bastion_region}"
     syslog_path         = "${var.bastion_logging_syslog}"
     authlog_path        = "${var.bastion_logging_authlog}"
     bastion_environment = "${var.bastion_environment}"

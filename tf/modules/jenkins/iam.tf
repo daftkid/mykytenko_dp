@@ -2,7 +2,7 @@
 # Jenkins Instance Profile
 #--------------------------------------------------------------
 resource "aws_iam_instance_profile" "jenkins_profile" {
-  name  = "jenkins-profile-${var.jenkins_environment}-${var.global_region}"
+  name  = "jenkins-profile-${var.jenkins_environment}-${var.jenkins_region}"
   role = ["${aws_iam_role.jenkins_role.name}"]
 }
 
@@ -10,7 +10,7 @@ resource "aws_iam_instance_profile" "jenkins_profile" {
 # Jenkins IAM Role
 #--------------------------------------------------------------
 resource "aws_iam_role" "jenkins_role" {
-  name = "jenkins-role-${var.jenkins_environment}-${var.global_region}"
+  name = "jenkins-role-${var.jenkins_environment}-${var.jenkins_region}"
   path = "/"
 
   assume_role_policy = <<EOF

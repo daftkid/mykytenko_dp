@@ -6,11 +6,10 @@ resource "aws_network_acl" "private" {
   subnet_ids = ["${aws_subnet.private_subnets.*.id}"]
 
   tags {
-    Name        = "private-acl"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
-    role        = "Private Subnet ACL"
+    Name    = "private-acl"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
+    Role    = "Private Subnet ACL"
   }
 }
 
@@ -20,7 +19,7 @@ resource "aws_network_acl_rule" "allow_ingress_all" {
   protocol       = "all"
   rule_number    = 100
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 0
   to_port        = 0
   network_acl_id = "${aws_network_acl.private.id}"
@@ -32,7 +31,7 @@ resource "aws_network_acl_rule" "allow_egress_all" {
   protocol       = "all"
   rule_number    = 100
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 0
   to_port        = 0
   network_acl_id = "${aws_network_acl.private.id}"
@@ -46,11 +45,10 @@ resource "aws_network_acl" "public" {
   subnet_ids = ["${aws_subnet.public_subnets.*.id}"]
 
   tags {
-    Name        = "public-acl"
-    environment = "${var.vpc_environment_tag}"
-    product     = "${var.vpc_product_tag}"
-    contact     = "${var.vpc_contact_tag}"
-    role        = "Public Subnet ACL"
+    Name    = "public-acl"
+    Env     = "${var.vpc_environment_tag}"
+    Contact = "${var.vpc_contact_tag}"
+    Role    = "Public Subnet ACL"
   }
 }
 
@@ -63,7 +61,7 @@ resource "aws_network_acl_rule" "allow_ingress_http" {
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 80
   to_port        = 80
 }
@@ -74,7 +72,7 @@ resource "aws_network_acl_rule" "allow_ingress_https" {
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 443
   to_port        = 443
 }
@@ -85,7 +83,7 @@ resource "aws_network_acl_rule" "allow_ingress_icmp" {
   egress         = false
   protocol       = "icmp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = -1
   to_port        = -1
   icmp_type      = -1
@@ -98,23 +96,23 @@ resource "aws_network_acl_rule" "allow_ingress_ntp" {
   egress         = false
   protocol       = "udp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 123
   to_port        = 123
 }
 
-resource "aws_network_acl_rule" "allow_ingress_ntp_ephemeral" {
+resource "aws_network_acl_rule" "allow_ingress_udp_ephemeral" {
   network_acl_id = "${aws_network_acl.public.id}"
   rule_number    = 360
   egress         = false
   protocol       = "udp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 1024
   to_port        = 65535
 }
 
-resource "aws_network_acl_rule" "allow_ingress_ephemeral" {
+resource "aws_network_acl_rule" "allow_ingress_tcp_ephemeral" {
   network_acl_id = "${aws_network_acl.public.id}"
   rule_number    = 400
   egress         = false
@@ -136,24 +134,13 @@ resource "aws_network_acl_rule" "allow_ingress_ssh_vpc" {
   to_port        = 22
 }
 
-resource "aws_network_acl_rule" "block_ingress_mysql" {
-  network_acl_id = "${aws_network_acl.public.id}"
-  rule_number    = 1100
-  egress         = false
-  protocol       = "tcp"
-  rule_action    = "deny"
-  cidr_block     = "${var.all_cidr_blocks}"
-  from_port      = 3306
-  to_port        = 3306
-}
-
 resource "aws_network_acl_rule" "block_ingress_postgres" {
   network_acl_id = "${aws_network_acl.public.id}"
   rule_number    = 1200
   egress         = false
   protocol       = "tcp"
   rule_action    = "deny"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 5432
   to_port        = 5432
 }
@@ -164,7 +151,7 @@ resource "aws_network_acl_rule" "allow_ingress_ephemeral2" {
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 1024
   to_port        = 65535
 }
@@ -178,7 +165,7 @@ resource "aws_network_acl_rule" "allow_egress_ephemeral" {
   egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 1024
   to_port        = 65535
 }
@@ -189,7 +176,7 @@ resource "aws_network_acl_rule" "allow_egress_http" {
   egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 80
   to_port        = 80
 }
@@ -200,7 +187,7 @@ resource "aws_network_acl_rule" "allow_egress_https" {
   egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 443
   to_port        = 443
 }
@@ -222,7 +209,7 @@ resource "aws_network_acl_rule" "allow_egress_icmp" {
   egress         = true
   protocol       = "icmp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = -1
   to_port        = -1
   icmp_type      = -1
@@ -235,18 +222,18 @@ resource "aws_network_acl_rule" "allow_egress_ntp" {
   egress         = true
   protocol       = "udp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 123
   to_port        = 123
 }
 
-resource "aws_network_acl_rule" "allow_egress_ntp_ephemeral" {
+resource "aws_network_acl_rule" "allow_egress_udp_ephemeral" {
   network_acl_id = "${aws_network_acl.public.id}"
   rule_number    = 560
   egress         = true
   protocol       = "udp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 1024
   to_port        = 65535
 }
@@ -257,7 +244,7 @@ resource "aws_network_acl_rule" "allow_egress_ssh_all" {
   egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
-  cidr_block     = "${var.all_cidr_blocks}"
+  cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 22
   to_port        = 22
 }

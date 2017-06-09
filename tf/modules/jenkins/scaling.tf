@@ -12,19 +12,19 @@ resource "aws_autoscaling_group" "jenkins_asg" {
   health_check_grace_period = "${var.jenkins_asg_grace_period}"
 
   tag {
-    key                 = "role"
+    key                 = "Role"
     value               = "jenkins"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "environment"
+    key                 = "Env"
     value               = "${var.jenkins_environment}"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "contact"
+    key                 = "Contact"
     value               = "${var.jenkins_contact}"
     propagate_at_launch = true
   }
@@ -32,12 +32,6 @@ resource "aws_autoscaling_group" "jenkins_asg" {
   tag {
     key                 = "Name"
     value               = "Jenkins-${var.jenkins_environment}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "created_with"
-    value               = "Terraform"
     propagate_at_launch = true
   }
 }
