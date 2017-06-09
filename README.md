@@ -2,6 +2,7 @@ Bachelor Diploma Project
 by Oleksandr Mykytenko (daft_kiD)
 
 Source tree:
+```
 .
 ├── app
 ├── puppet
@@ -57,5 +58,6 @@ Source tree:
     ├── mykytenko-dp.tf
     ├── terraform.tfvars
     └── variables.tf
+```
 
 For Kharkiv National Aerospace University 'HAI', spring-summer 2017
