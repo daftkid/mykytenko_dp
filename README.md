@@ -4,8 +4,6 @@ by Oleksandr Mykytenko (daft_kiD)
 Source tree:
 ```
 .
-├── app
-├── puppet
 └── tf
     ├── manual_resources.tf
     ├── modules
