@@ -20,12 +20,12 @@ variable "webapp_vpc_id" {
 #--------------------------------------------------------------
 variable "webapp_contact" {
   description = "The contact to assign to resources."
-  default     = "Manh_Tan_Nguyen@epam.com"
+  default     = "alexandr.mykytenko@gmail.com"
 }
 
 variable "webapp_environment" {
   description = "The environment label to apply to webapp resources."
-  default     = "PROD"
+  default     = "dp"
 }
 
 variable "webapp_instance_tier" {
@@ -46,11 +46,6 @@ variable "webapp_trusted_networks" {
 variable "webapp_user" {
   description = "The user name that should be used when connecting to the webapp host."
   default     = "ec2-user"
-}
-
-variable "webapp_git_port" {
-  description = "The port on which we listen for git traffic of webapp"
-  default     = "29418"
 }
 
 variable "webapp_https_cert_name" {
@@ -125,7 +120,7 @@ variable "webapp_asg_grace_period" {
 
 variable "webapp_asg_name" {
   description = "The name to assign to the autoscaling group."
-  default     = "CodeReview"
+  default     = "webapp"
 }
 
 #--------------------------------------------------------------
@@ -155,7 +150,7 @@ variable "webapp_bastion_asg_sg" {
 #--------------------------------------------------------------
 variable "webapp_elb_log_bucket" {
   description = "The S3 bucket name where ELB access logs will be sent."
-  default     = "collected-logs-epam-698099446200"
+  default     = "mykytenko-dp-logs"
 }
 
 variable "webapp_elb_subnets" {
