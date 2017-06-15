@@ -3,7 +3,7 @@
 #--------------------------------------------------------------
 global_account_number = "676206752786" # AWS account number.
 
-global_work_profile = "mykytenko-dp-profile"
+global_work_profile = "default"
 
 global_availability_zones = "us-east-1a,us-east-1b" # Comma-separated string.
 

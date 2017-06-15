@@ -62,9 +62,9 @@ module "webapp" {
   webapp_keypair          = "${var.global_keypair}"
   webapp_region           = "${var.global_region}"
   webapp_vpc_id           = "${module.vpc.vpc_id}"
-  webapp_dns_zone         = "${data.aws_route53_zone.main_zone.zone_id}"
+  #webapp_dns_zone         = "${data.aws_route53_zone.main_zone.zone_id}"
   webapp_elb_enable_https = true
-  webapp_https_cert_name  = "${data.aws_acm_certificate.main_cert.arn}"
+  #webapp_https_cert_name  = "${data.aws_acm_certificate.main_cert.arn}"
   webapp_rds_subnets      = "${module.vpc.private_subnets}"
 }
 

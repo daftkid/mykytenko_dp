@@ -28,7 +28,7 @@ resource "aws_route53_zone" "reverse_lookup_zone" {
 #--------------------------------------------------------------
 # Custom DHCP Option Set
 #--------------------------------------------------------------
-resource "aws_vpc_dhcp_options" "dp_options" {
+resource "aws_vpc_dhcp_options" "dhcp_options" {
   domain_name         = "${var.vpc_phz_domain}"
   domain_name_servers = ["AmazonProvidedDNS"]
 
@@ -44,5 +44,5 @@ resource "aws_vpc_dhcp_options" "dp_options" {
 #--------------------------------------------------------------
 resource "aws_vpc_dhcp_options_association" "local_resolver" {
   vpc_id          = "${aws_vpc.main.id}"
-  dhcp_options_id = "${aws_vpc_dhcp_options.dp_options.id}"
+  dhcp_options_id = "${aws_vpc_dhcp_options.dhcp_options.id}"
 }

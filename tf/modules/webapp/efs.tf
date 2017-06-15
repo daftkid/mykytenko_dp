@@ -14,5 +14,5 @@ resource "aws_efs_mount_target" "webapp_efs_mt" {
   count           = 2
   file_system_id  = "${aws_efs_file_system.webapp_efs_fs.id}"
   subnet_id       = "${element(split(",", var.webapp_efs_subnets), count.index)}"
-  security_groups = ["${aws_security_group.gerrit_efs_mounttarget_sg.id}"]
+  security_groups = ["${aws_security_group.webapp_efs_mounttarget_sg.id}"]
 }

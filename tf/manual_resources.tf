@@ -2,6 +2,8 @@
 # All the resources that we have created manually in our account
 #-------------------------------------------------------------
 # The certificate that was created earlier
+
+/*
 data "aws_acm_certificate" "main_cert" {
   domain   = "*.mykytenko-dp.com"
   statuses = ["ISSUED"]
@@ -12,3 +14,4 @@ data "aws_route53_zone" "main_zone" {
   name         = "mykytenko-dp.com"
   private_zone = false
 }
+*/

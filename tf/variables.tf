@@ -17,8 +17,6 @@ variable "global_logging_bucket" {}
 
 variable "global_private_subnets" {}
 
-variable "global_product_tag" {}
-
 variable "global_provider_role" {
   default = ""
 }

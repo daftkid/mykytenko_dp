@@ -1,7 +1,7 @@
 #--------------------------------------------------------------
 # Private Subnet Network ACL
 #--------------------------------------------------------------
-resource "aws_network_acl" "private" {
+resource "aws_network_acl" "private_nacl" {
   vpc_id     = "${aws_vpc.main.id}"
   subnet_ids = ["${aws_subnet.private_subnets.*.id}"]
 
@@ -22,7 +22,7 @@ resource "aws_network_acl_rule" "allow_ingress_all" {
   cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 0
   to_port        = 0
-  network_acl_id = "${aws_network_acl.private.id}"
+  network_acl_id = "${aws_network_acl.private_nacl.id}"
 }
 
 # Authorize all outbound traffic.
@@ -34,13 +34,13 @@ resource "aws_network_acl_rule" "allow_egress_all" {
   cidr_block     = "${var.vpc_all_cidr_blocks}"
   from_port      = 0
   to_port        = 0
-  network_acl_id = "${aws_network_acl.private.id}"
+  network_acl_id = "${aws_network_acl.private_nacl.id}"
 }
 
 #--------------------------------------------------------------
 # Public Subnet Network ACL
 #--------------------------------------------------------------
-resource "aws_network_acl" "public" {
+resource "aws_network_acl" "public_nacl" {
   vpc_id     = "${aws_vpc.main.id}"
   subnet_ids = ["${aws_subnet.public_subnets.*.id}"]
 
@@ -56,7 +56,7 @@ resource "aws_network_acl" "public" {
 # Public Subnet Network ACL - Ingress Rules
 #--------------------------------------------------------------
 resource "aws_network_acl_rule" "allow_ingress_http" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 100
   egress         = false
   protocol       = "tcp"
@@ -67,7 +67,7 @@ resource "aws_network_acl_rule" "allow_ingress_http" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_https" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 200
   egress         = false
   protocol       = "tcp"
@@ -78,7 +78,7 @@ resource "aws_network_acl_rule" "allow_ingress_https" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_icmp" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 300
   egress         = false
   protocol       = "icmp"
@@ -91,7 +91,7 @@ resource "aws_network_acl_rule" "allow_ingress_icmp" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_ntp" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 350
   egress         = false
   protocol       = "udp"
@@ -102,7 +102,7 @@ resource "aws_network_acl_rule" "allow_ingress_ntp" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_udp_ephemeral" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 360
   egress         = false
   protocol       = "udp"
@@ -113,7 +113,7 @@ resource "aws_network_acl_rule" "allow_ingress_udp_ephemeral" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_tcp_ephemeral" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 400
   egress         = false
   protocol       = "tcp"
@@ -124,7 +124,7 @@ resource "aws_network_acl_rule" "allow_ingress_tcp_ephemeral" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_ssh_vpc" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 800
   egress         = false
   protocol       = "tcp"
@@ -135,7 +135,7 @@ resource "aws_network_acl_rule" "allow_ingress_ssh_vpc" {
 }
 
 resource "aws_network_acl_rule" "block_ingress_postgres" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 1200
   egress         = false
   protocol       = "tcp"
@@ -146,7 +146,7 @@ resource "aws_network_acl_rule" "block_ingress_postgres" {
 }
 
 resource "aws_network_acl_rule" "allow_ingress_ephemeral2" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 1400
   egress         = false
   protocol       = "tcp"
@@ -160,7 +160,7 @@ resource "aws_network_acl_rule" "allow_ingress_ephemeral2" {
 # Public Subnet Network ACL - Egress Rules
 #--------------------------------------------------------------
 resource "aws_network_acl_rule" "allow_egress_ephemeral" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 100
   egress         = true
   protocol       = "tcp"
@@ -171,7 +171,7 @@ resource "aws_network_acl_rule" "allow_egress_ephemeral" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_http" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 200
   egress         = true
   protocol       = "tcp"
@@ -182,7 +182,7 @@ resource "aws_network_acl_rule" "allow_egress_http" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_https" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 300
   egress         = true
   protocol       = "tcp"
@@ -193,7 +193,7 @@ resource "aws_network_acl_rule" "allow_egress_https" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_ssh_vpc" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 400
   egress         = true
   protocol       = "tcp"
@@ -204,7 +204,7 @@ resource "aws_network_acl_rule" "allow_egress_ssh_vpc" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_icmp" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 500
   egress         = true
   protocol       = "icmp"
@@ -217,7 +217,7 @@ resource "aws_network_acl_rule" "allow_egress_icmp" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_ntp" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 550
   egress         = true
   protocol       = "udp"
@@ -228,7 +228,7 @@ resource "aws_network_acl_rule" "allow_egress_ntp" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_udp_ephemeral" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 560
   egress         = true
   protocol       = "udp"
@@ -239,7 +239,7 @@ resource "aws_network_acl_rule" "allow_egress_udp_ephemeral" {
 }
 
 resource "aws_network_acl_rule" "allow_egress_ssh_all" {
-  network_acl_id = "${aws_network_acl.public.id}"
+  network_acl_id = "${aws_network_acl.public_nacl.id}"
   rule_number    = 700
   egress         = true
   protocol       = "tcp"
