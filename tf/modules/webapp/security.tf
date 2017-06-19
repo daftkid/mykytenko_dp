@@ -109,15 +109,6 @@ resource "aws_security_group_rule" "allow_http_forward_ingress_80" {
   source_security_group_id = "${aws_security_group.webapp_elb_sg.id}"
 }
 
-resource "aws_security_group_rule" "allow_webapp_git_forward_ingress" {
-  type                     = "ingress"
-  from_port                = "${var.webapp_git_port}"
-  to_port                  = "${var.webapp_git_port}"
-  protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.webapp_asg_sg.id}"
-  source_security_group_id = "${aws_security_group.webapp_elb_sg.id}"
-}
-
 resource "aws_security_group_rule" "allow_ssh_from_bastion_to_webapp" {
   type                     = "ingress"
   from_port                = 22
@@ -167,15 +158,6 @@ resource "aws_security_group" "webapp_elb_sg" {
   }
 }
 
-resource "aws_security_group_rule" "allow_webapp_git_forward_egress" {
-  type                     = "egress"
-  from_port                = "${var.webapp_git_port}"
-  to_port                  = "${var.webapp_git_port}"
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.webapp_asg_sg.id}"
-  security_group_id        = "${aws_security_group.webapp_elb_sg.id}"
-}
-
 resource "aws_security_group_rule" "allow_http_forward_egress_80" {
   type                     = "egress"
   from_port                = 80
@@ -198,15 +180,6 @@ resource "aws_security_group_rule" "allow_https_access_to_elb_443" {
   type              = "ingress"
   from_port         = 443
   to_port           = 443
-  protocol          = "tcp"
-  security_group_id = "${aws_security_group.webapp_elb_sg.id}"
-  cidr_blocks       = ["${split(",", var.webapp_trusted_networks)}"]
-}
-
-resource "aws_security_group_rule" "allow_webapp_git_access_to_elb" {
-  type              = "ingress"
-  from_port         = "${var.webapp_git_port}"
-  to_port           = "${var.webapp_git_port}"
   protocol          = "tcp"
   security_group_id = "${aws_security_group.webapp_elb_sg.id}"
   cidr_blocks       = ["${split(",", var.webapp_trusted_networks)}"]

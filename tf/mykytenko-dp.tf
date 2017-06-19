@@ -84,7 +84,7 @@ module "jenkins" {
   jenkins_keypair          = "${var.global_keypair}"
   jenkins_region           = "${var.global_region}"
   jenkins_vpc_id           = "${module.vpc.vpc_id}"
-  jenkins_dns_zone         = "${data.aws_route53_zone.main_zone.zone_id}"
+  #jenkins_dns_zone         = "${data.aws_route53_zone.main_zone.zone_id}"
   jenkins_elb_enable_https = true
-  jenkins_elb_https_cert   = "${data.aws_acm_certificate.main_cert.arn}"
+  #jenkins_elb_https_cert   = "${data.aws_acm_certificate.main_cert.arn}"
 }

@@ -1,3 +1,4 @@
+/*
 output "jenkins_public_dns" {
   value = "${aws_route53_record.jenkins_elb_entry.fqdn}"
 }
@@ -5,7 +6,7 @@ output "jenkins_public_dns" {
 output "jenkins_public_url" {
   value = "${var.jenkins_elb_enable_https? "https" : "http" }://${aws_route53_record.jenkins_elb_entry.fqdn}"
 }
-
+*/
 output "jenkins_asg_sg" {
   value = "${aws_security_group.jenkins_asg_sg.id}"
 }

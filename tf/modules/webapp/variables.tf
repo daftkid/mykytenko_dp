@@ -50,6 +50,7 @@ variable "webapp_user" {
 
 variable "webapp_https_cert_name" {
   description = "Name of the certificate that we will use for https on webapp listener"
+  default     = "mykytenko-cert"
 }
 
 #--------------------------------------------------------------
@@ -220,6 +221,7 @@ variable "webapp_s3_expiration_threshold" {
 variable "webapp_dns_zone" {
   type        = "string"
   description = "Route53 hosted zone in which you would want to create DNS record to point to our ELB"
+  default     = "mykytenko-dp.com"
 }
 
 variable "webapp_elb_enable_https" {

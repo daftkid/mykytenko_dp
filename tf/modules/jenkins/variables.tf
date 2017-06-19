@@ -121,7 +121,7 @@ variable "jenkins_elb_enable_https" {
 
 variable "jenkins_elb_https_cert" {
   description = "ARN of the certficate that you should use on the ELB if we enable https"
-  default     = ""
+  default     = "test"
 }
 
 #--------------------------------------------------------------
@@ -157,4 +157,5 @@ variable "jenkins_s3_versioning" {
 variable "jenkins_dns_zone" {
   type        = "string"
   description = "Route53 hosted zone in which you would want to create DNS record to point to our ELB"
+  default     = "test.com"
 }
